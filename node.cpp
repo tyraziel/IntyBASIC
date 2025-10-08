@@ -878,7 +878,7 @@ void node::generate(int reg, int decision) {
                     output->emit_nr(N_CMPI, "", val, reg);
                     if (decision) {
                         if (value) {    // Unsigned
-                            output->emit_a(N_BEQ, "", 4);
+                            output->emit_a(N_BEQ, TEMP_PREFIX, decision);
                             output->emit_a(N_BNC, TEMP_PREFIX, decision);
                         } else {
                             output->emit_a(N_BLE, TEMP_PREFIX, decision);
