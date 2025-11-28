@@ -34,7 +34,7 @@ using namespace std;
 #include "code.h"       // Class code
 #include "node.h"       // Class node
 
-const string VERSION = "v1.5.1 May/10/2025";      // Compiler version
+const string VERSION = "v1.5.2 Nov/28/2025";      // Compiler version
 
 const string LABEL_PREFIX = "Q";    // Prefix for BASIC labels
 const string TEMP_PREFIX = "T";     // Prefix for temporal labels
@@ -3946,6 +3946,11 @@ private:
             asm_output << "\tSRCFILE \"" << current_path << "\"," << line_number << "\n";
             get_lex();
             if (lex == C_LABEL) {
+                if (bitmap_byte != 0) {
+                    string temp = "Uneven BITMAP statements before '" + name + "' label";
+                    
+                    emit_warning(temp);
+                }
                 if (value == 0)
                     global_label = name;
                 if (labels.find(name) != labels.end()) {
@@ -4077,6 +4082,11 @@ private:
             if (lex != C_END) {
                 emit_error("invalid extra characters");
             }
+        }
+        if (bitmap_byte != 0) {
+            string temp = "Uneven BITMAP statements at end of source file";
+            
+            emit_warning(temp);
         }
     };
     
