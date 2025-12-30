@@ -13,3 +13,5 @@ xcuserdata/
 # Generated files
 *.o
 intybasic
+
+!claude/intybasic
